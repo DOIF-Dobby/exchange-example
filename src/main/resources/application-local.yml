@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/exchange_example
+    username: exchange_user
+    password: exchange_user1234
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+jwt:
+  key: 4658UTHzqoaa2brF37TaZQm9smn7q42LhEGr5Ps3PXIzDKOghCssd2ds
+  expiration: PT24H
