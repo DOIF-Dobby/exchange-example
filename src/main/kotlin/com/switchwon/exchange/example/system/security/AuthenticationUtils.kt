@@ -6,16 +6,16 @@ class AuthenticationUtils {
 
     companion object {
 
-        fun getTokenUser(): TokenUser? {
-            return SecurityContextHolder.getContext().authentication?.principal as? TokenUser
+        fun getCurrentMember(): TokenMember? {
+            return SecurityContextHolder.getContext().authentication?.principal as? TokenMember
         }
 
-        fun getUserId(): Long? {
-            return getTokenUser()?.userId
+        fun getCurrentMemberId(): Long? {
+            return getCurrentMember()?.memberId
         }
 
-        fun getUserEmail(): String? {
-            return getTokenUser()?.email
+        fun getCurrentMemberEmail(): String? {
+            return getCurrentMember()?.email
         }
     }
 }

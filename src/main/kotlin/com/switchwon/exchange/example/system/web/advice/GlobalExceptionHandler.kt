@@ -1,7 +1,7 @@
 package com.switchwon.exchange.example.system.web.advice
 
 import com.fasterxml.jackson.databind.exc.MismatchedInputException
-import com.switchwon.exchange.example.shared.domain.DomainException
+import com.switchwon.exchange.example.shared.domain.exception.DomainException
 import com.switchwon.exchange.example.system.core.logging.log
 import com.switchwon.exchange.example.system.web.ApiResponse
 import com.switchwon.exchange.example.system.web.UnitApiResponse

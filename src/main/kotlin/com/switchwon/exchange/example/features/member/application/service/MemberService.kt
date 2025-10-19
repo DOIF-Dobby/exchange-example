@@ -31,7 +31,7 @@ class MemberService(
     @Transactional(readOnly = true)
     fun findMember(memberId: MemberId): Member {
         val member = memberRepository.findByIdOrThrow(memberId.value) {
-            NotFoundException("회원 정보를 찾을 수 없습니다. 회원 ID: $it")
+            NotFoundException(code = "MEMBER_NOT_FOUND", message = "회원이 존재하지 않습니다. ID: $memberId")
         }
 
         return member

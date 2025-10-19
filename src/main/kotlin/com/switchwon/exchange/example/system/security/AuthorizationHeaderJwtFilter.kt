@@ -47,13 +47,13 @@ class AuthorizationHeaderJwtFilter(
     /**
      *JWT 토큰을 TokenUser로 변환합니다.
      */
-    private fun convertTokenToUser(token: String): TokenUser {
+    private fun convertTokenToUser(token: String): TokenMember {
         val claims = jwtService.getClaims(token)
         val userId = claims.payload.subject ?: throw IllegalArgumentException("User ID not found in token claims")
         val email = claims.payload.get("email", String::class.java)
             ?: throw IllegalArgumentException("Email not found in token claims")
 
-        return TokenUser(userId.toLong(), email)
+        return TokenMember(userId.toLong(), email)
     }
 
 }

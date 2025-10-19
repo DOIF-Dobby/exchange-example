@@ -1,6 +1,6 @@
 package com.switchwon.exchange.example.features.wallet.domain.exception
 
-import com.switchwon.exchange.example.shared.domain.DomainException
+import com.switchwon.exchange.example.shared.domain.exception.DomainException
 
 class InvalidWithdrawAmountException : DomainException(
     code = "INVALID_WITHDRAW_AMOUNT",

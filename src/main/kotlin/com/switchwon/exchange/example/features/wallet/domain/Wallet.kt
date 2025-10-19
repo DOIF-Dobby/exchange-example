@@ -36,7 +36,17 @@ class Wallet(
 
     @Embedded
     @AttributeOverride(name = "amount", column = Column(name = "balance_amount", nullable = false))
-    var balance: Money = Money(currency, BigDecimal.ZERO)
+    private var _balance: Money = Money(currency, BigDecimal.ZERO)
+
+    val balance: Money
+        get() = _balance
+
+    val currency: Currency
+        get() = balance.currency
+
+    val balanceAmount: BigDecimal
+        get() = balance.amount
+
 
     /**
      * 지갑에 금액을 입금합니다. 입금액은 반드시 0 이상이어야 합니다.
@@ -45,7 +55,7 @@ class Wallet(
         if (amount.isNegative()) {
             throw InvalidDepositAmountException()
         }
-        this.balance += amount
+        this._balance += amount
     }
 
     /**
@@ -56,11 +66,11 @@ class Wallet(
             throw InvalidWithdrawAmountException()
         }
 
-        val afterBalance = this.balance - amount
+        val afterBalance = this._balance - amount
         if (afterBalance.isNegative()) {
             throw WalletInsufficientBalanceException()
         }
 
-        this.balance = afterBalance
+        this._balance = afterBalance
     }
 }

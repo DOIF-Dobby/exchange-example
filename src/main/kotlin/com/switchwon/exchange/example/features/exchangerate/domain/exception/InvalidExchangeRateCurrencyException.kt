@@ -1,6 +1,6 @@
 package com.switchwon.exchange.example.features.exchangerate.domain.exception
 
-import com.switchwon.exchange.example.shared.domain.DomainException
+import com.switchwon.exchange.example.shared.domain.exception.DomainException
 
 class InvalidExchangeRateCurrencyException : DomainException(
     code = "INVALID_EXCHANGE_RATE_CURRENCY",

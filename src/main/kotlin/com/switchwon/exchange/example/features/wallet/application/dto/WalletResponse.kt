@@ -13,8 +13,8 @@ data class WalletResponse(
         fun from(wallet: Wallet) = wallet.run {
             WalletResponse(
                 walletId = id.value,
-                currency = balance.currency,
-                balance = balance.amount
+                currency = currency,
+                balance = balanceAmount
             )
         }
     }

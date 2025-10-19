@@ -9,7 +9,8 @@ data class ExchangeRateResponse(
     val exchangeRateId: Long,
     val currency: Currency,
     val rate: BigDecimal,
-    val applyDate: LocalDateTime,
+    val changePercentage: BigDecimal,
+    val applyDateTime: LocalDateTime,
 ) {
     companion object {
         fun from(exchangeRate: ExchangeRate) = exchangeRate.run {
@@ -17,7 +18,8 @@ data class ExchangeRateResponse(
                 exchangeRateId = id.value,
                 currency = currency,
                 rate = rate,
-                applyDate = createdAt!!,
+                changePercentage = changePercentage,
+                applyDateTime = createdAt!!,
             )
         }
     }

@@ -11,6 +11,9 @@ class ExchangeRateController(
     private val exchangeRateService: ExchangeRateService
 ) {
 
+    /**
+     * 최신 환율 조회
+     */
     @GetMapping("/exchange-rates/latest")
     fun getLatestExchangeRates(): ApiResponse<List<ExchangeRateResponse>> {
         val rates = exchangeRateService.findLatestExchangeRateResponses()

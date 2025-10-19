@@ -21,13 +21,18 @@ class InitializeWalletService(
         val krwWallet = Wallet(
             member = member,
             currency = Currency.KRW
-        ).apply { deposit(Money.Companion.krw(1_000_000L)) }
+        ).apply { deposit(Money.krw(1_000_000L)) }
 
         val usdWallet = Wallet(
             member = member,
             currency = Currency.USD
         )
 
-        walletRepository.saveAll(listOf(krwWallet, usdWallet))
+        val jpyWallet = Wallet(
+            member = member,
+            currency = Currency.JPY
+        )
+
+        walletRepository.saveAll(listOf(krwWallet, usdWallet, jpyWallet))
     }
 }

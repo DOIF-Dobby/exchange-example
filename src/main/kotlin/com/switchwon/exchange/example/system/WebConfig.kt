@@ -1,8 +1,8 @@
 package com.switchwon.exchange.example.system
 
 import com.switchwon.exchange.example.system.web.filter.LoggingFilter
-import com.switchwon.exchange.example.system.web.resolver.UserEmailArgumentResolver
-import com.switchwon.exchange.example.system.web.resolver.UserIdArgumentResolver
+import com.switchwon.exchange.example.system.web.resolver.CurrentMemberEmailArgumentResolver
+import com.switchwon.exchange.example.system.web.resolver.CurrentMemberIdArgumentResolver
 import jakarta.servlet.Filter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -18,7 +18,7 @@ class WebConfig : WebMvcConfigurer {
     }
 
     override fun addArgumentResolvers(resolvers: MutableList<HandlerMethodArgumentResolver>) {
-        resolvers.add(UserIdArgumentResolver())
-        resolvers.add(UserEmailArgumentResolver())
+        resolvers.add(CurrentMemberIdArgumentResolver())
+        resolvers.add(CurrentMemberEmailArgumentResolver())
     }
 }

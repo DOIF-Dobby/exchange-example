@@ -28,5 +28,5 @@ interface ExchangeRateRepository : JpaRepository<ExchangeRate, Long> {
         )
     """
     )
-    fun findLatestExchangeRate(): List<ExchangeRate>
+    fun findLatestExchangeRates(): List<ExchangeRate>
 }

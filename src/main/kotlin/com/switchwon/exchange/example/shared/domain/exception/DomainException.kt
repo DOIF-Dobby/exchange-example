@@ -1,4 +1,4 @@
-package com.switchwon.exchange.example.shared.domain
+package com.switchwon.exchange.example.shared.domain.exception
 
 abstract class DomainException(
     val code: String,

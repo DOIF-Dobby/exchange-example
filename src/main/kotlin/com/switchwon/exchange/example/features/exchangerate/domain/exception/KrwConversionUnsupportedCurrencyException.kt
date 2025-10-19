@@ -1,7 +1,7 @@
 package com.switchwon.exchange.example.features.exchangerate.domain.exception
 
 import com.switchwon.exchange.example.shared.domain.Currency
-import com.switchwon.exchange.example.shared.domain.DomainException
+import com.switchwon.exchange.example.shared.domain.exception.DomainException
 
 class KrwConversionUnsupportedCurrencyException(
     currency: Currency

@@ -1,4 +1,4 @@
-package com.switchwon.exchange.example.shared.domain
+package com.switchwon.exchange.example.shared.domain.exception
 
 class CurrencyMismatchException : DomainException(
     code = "CURRENCY_MISMATCH",

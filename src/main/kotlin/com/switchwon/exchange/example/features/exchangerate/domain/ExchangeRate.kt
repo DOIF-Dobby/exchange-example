@@ -17,6 +17,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.Index
 import jakarta.persistence.Table
 import java.math.BigDecimal
+import java.math.RoundingMode
 
 @Table(
     name = "exchange_rate",
@@ -32,6 +33,9 @@ class ExchangeRate(
 
     @Column(name = "rate", nullable = false, updatable = false)
     val rate: BigDecimal,
+
+    @Column(name = "base_rate", nullable = false, updatable = false)
+    val baseRate: BigDecimal,
 ) : BaseEntity() {
 
     init {
@@ -44,6 +48,24 @@ class ExchangeRate(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "exchange_rate_id")
     val id: ExchangeRateId = ExchangeRateId(0L)
+
+    @Column(name = "change_percentage", nullable = false, updatable = false)
+    val changePercentage: BigDecimal = calculateChangePercentage()
+
+    /**
+     * 생성 시점에 변동률을 계산합니다.
+     */
+    private fun calculateChangePercentage(): BigDecimal {
+        if (baseRate.compareTo(BigDecimal.ZERO) == 0) {
+            return BigDecimal.ZERO
+        }
+
+        val change = this.rate - this.baseRate
+        val percentage = change.divide(this.baseRate, 8, RoundingMode.HALF_UP) * BigDecimal(100)
+
+        // 최종 결과를 소수점 2자리로 반올림하여 반환합니다.
+        return percentage.setScale(2, RoundingMode.HALF_UP)
+    }
 
     /**
      * 원화를 이 환율의 대상 통화로 변환합니다. (KRW -> Forex)

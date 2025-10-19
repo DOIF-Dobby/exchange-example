@@ -7,10 +7,10 @@ import org.springframework.web.context.request.NativeWebRequest
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.method.support.ModelAndViewContainer
 
-class UserIdArgumentResolver : HandlerMethodArgumentResolver {
+class CurrentMemberIdArgumentResolver : HandlerMethodArgumentResolver {
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
-        return parameter.hasParameterAnnotation(UserId::class.java)
+        return parameter.hasParameterAnnotation(CurrentMemberId::class.java)
     }
 
     override fun resolveArgument(
@@ -20,7 +20,7 @@ class UserIdArgumentResolver : HandlerMethodArgumentResolver {
         binderFactory: WebDataBinderFactory?
     ): Any? {
         if (parameter.parameterType == Long::class.java) {
-            return AuthenticationUtils.getUserId()
+            return AuthenticationUtils.getCurrentMemberId()
         }
         return null
     }

@@ -7,16 +7,16 @@ import org.springframework.web.filter.AbstractRequestLoggingFilter
 
 class LoggingFilter : AbstractRequestLoggingFilter() {
     override fun beforeRequest(request: HttpServletRequest, message: String) {
-        val userId = AuthenticationUtils.getUserId()
-        val userEmail = AuthenticationUtils.getUserEmail()
+        val memberId = AuthenticationUtils.getCurrentMemberId()
+        val memberEmail = AuthenticationUtils.getCurrentMemberEmail()
 
-        log.info { "$message >> userId: ${userId}, userEmail: $userEmail" }
+        log.info { "$message >> memberId: ${memberId}, memberEmail: $memberEmail" }
     }
 
     override fun afterRequest(request: HttpServletRequest, message: String) {
-        val userId = AuthenticationUtils.getUserId()
-        val userEmail = AuthenticationUtils.getUserEmail()
+        val memberId = AuthenticationUtils.getCurrentMemberId()
+        val memberEmail = AuthenticationUtils.getCurrentMemberEmail()
 
-        log.info { "$message >> userId: ${userId}, userEmail: $userEmail" }
+        log.info { "$message >> memberId: ${memberId}, memberEmail: $memberEmail" }
     }
 }

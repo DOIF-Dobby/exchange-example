@@ -13,14 +13,14 @@ class ExchangeRateScheduler(
     private val exchangeRateService: ExchangeRateService
 ) {
 
-    @Scheduled(cron = "0/10 * * * * *")
+    @Scheduled(cron = "0 * * * * *")
     fun triggerCreateNewExchangeRate() {
         generateRandomUsd().also {
             log.info { "random USD rate: $it" }
 
             exchangeRateService.createExchangeRate(
                 currency = Currency.USD,
-                rate = it
+                newRate = it
             )
         }
 
@@ -29,18 +29,18 @@ class ExchangeRateScheduler(
 
             exchangeRateService.createExchangeRate(
                 currency = Currency.JPY,
-                rate = it
+                newRate = it
             )
         }
     }
 
     private fun generateRandomUsd(): BigDecimal {
         val nextDouble = Random.nextDouble(1450.0, 1500.0)
-        return BigDecimal(nextDouble).setScale(Currency.USD.scale, Currency.USD.roundingMode)
+        return BigDecimal(nextDouble).setScale(Currency.USD.roundingScale, Currency.USD.roundingMode)
     }
 
     private fun generateRandomJpy(): BigDecimal {
         val nextDouble = Random.nextDouble(900.0, 950.0)
-        return BigDecimal(nextDouble).setScale(Currency.JPY.scale, Currency.JPY.roundingMode)
+        return BigDecimal(nextDouble).setScale(Currency.JPY.roundingScale, Currency.JPY.roundingMode)
     }
 }

@@ -3,7 +3,7 @@ package com.switchwon.exchange.example.system.security
 import org.springframework.security.authentication.AbstractAuthenticationToken
 
 class TokenAuthentication(
-    private val principal: TokenUser,
+    private val principal: TokenMember,
 ) : AbstractAuthenticationToken(emptyList()) {
 
     init {

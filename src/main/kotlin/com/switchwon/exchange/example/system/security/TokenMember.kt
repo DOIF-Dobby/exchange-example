@@ -1,6 +1,6 @@
 package com.switchwon.exchange.example.system.security
 
-data class TokenUser(
-    val userId: Long,
+data class TokenMember(
+    val memberId: Long,
     val email: String,
 )

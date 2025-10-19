@@ -1,5 +1,6 @@
 package com.switchwon.exchange.example.shared.domain
 
+import com.switchwon.exchange.example.shared.domain.exception.CurrencyMismatchException
 import jakarta.persistence.Embeddable
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
@@ -13,7 +14,7 @@ class Money(
 ) : Comparable<Money> {
 
     // 통화 타입에 맞는 자릿수 만큼 roundingMode 적용해서 금액 설정
-    val amount: BigDecimal = amount.setScale(currency.scale, currency.roundingMode)
+    val amount: BigDecimal = amount.setScale(currency.roundingScale, currency.roundingMode)
 
     fun isSameCurrency(other: Money) = currency == other.currency
 
@@ -22,14 +23,14 @@ class Money(
     fun isNegative(): Boolean = amount < BigDecimal.ZERO
 
     fun formatted(): String {
-        val scaledAmount = amount.setScale(currency.scale, currency.roundingMode)
+        val scaledAmount = amount.setScale(currency.roundingScale, currency.roundingMode)
         return "$currency ${currency.decimalFormat.format(scaledAmount)}"
     }
 
     operator fun plus(other: Money) = operateMoney(other) { a, b -> a + b }
     operator fun minus(other: Money) = operateMoney(other) { a, b -> a - b }
     operator fun times(other: Number) = Money(currency, amount * BigDecimal(other.toString()))
-    operator fun div(other: Number) = Money(currency, amount.divide(BigDecimal(other.toString()), currency.scale, currency.roundingMode))
+    operator fun div(other: Number) = Money(currency, amount.divide(BigDecimal(other.toString()), currency.roundingScale, currency.roundingMode))
 
     /**
      * 두 Money 객체의 통화가 같은지 검증
@@ -78,5 +79,8 @@ class Money(
 
         fun usd(amount: BigDecimal) = Money(Currency.USD, amount)
         fun usd(amount: Number) = Money(Currency.USD, BigDecimal(amount.toString()))
+
+        fun jpy(amount: BigDecimal) = Money(Currency.JPY, amount)
+        fun jpy(amount: Number) = Money(Currency.JPY, BigDecimal(amount.toString()))
     }
 }

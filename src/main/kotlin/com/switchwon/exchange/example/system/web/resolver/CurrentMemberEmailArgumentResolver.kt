@@ -7,10 +7,10 @@ import org.springframework.web.context.request.NativeWebRequest
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.method.support.ModelAndViewContainer
 
-class UserEmailArgumentResolver : HandlerMethodArgumentResolver {
+class CurrentMemberEmailArgumentResolver : HandlerMethodArgumentResolver {
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
-        return parameter.hasParameterAnnotation(UserEmail::class.java)
+        return parameter.hasParameterAnnotation(CurrentMemberEmail::class.java)
     }
 
     override fun resolveArgument(
@@ -20,7 +20,7 @@ class UserEmailArgumentResolver : HandlerMethodArgumentResolver {
         binderFactory: WebDataBinderFactory?
     ): Any? {
         if (parameter.parameterType == String::class.java) {
-            return AuthenticationUtils.getUserEmail()
+            return AuthenticationUtils.getCurrentMemberEmail()
         }
         return null
     }
