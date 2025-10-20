@@ -1,0 +1,17 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:mysql://mysql:3306/exchange_example
+    username: exchange_user
+    password: exchange_user1234
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: false
+
+jwt:
+  key: 4124a8UTHzqoaa2brF37TaZQm9smn7q42LhEGr5Ps3PXIzDKOghCdsd3as
+  expiration: PT1H
