@@ -3,7 +3,7 @@ spring:
     activate:
       on-profile: dev
   datasource:
-    url: jdbc:mysql://mysql:3307/exchange_example
+    url: jdbc:mysql://mysql:3306/exchange_example
     username: exchange_user
     password: exchange_user1234
 
