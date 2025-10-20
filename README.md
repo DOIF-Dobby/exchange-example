@@ -10,8 +10,8 @@
 
 과제 진행에 필요한 아래의 자료들을 제공합니다.
 
-- 실행 가능한 백엔드 서버: `https://exchange-example.switchflow.biz`
-- API 명세서
+- 실행 가능한 백엔드 서버: `exchange-example.switchflow.biz`
+- API 명세서: [Swagger UI](https://exchange-example.switchflow.biz/swagger-ui/index.html)
 - Figma 링크: [Figma 환전 예제](https://www.figma.com/design/ws0wZfa7r0YTW0hrpuHV93/%ED%99%98%EC%A0%84-%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%98%88%EC%A0%9C?node-id=8-10175&t=eazJdYulAiOl1BLU-1)
 
 ## ✅ 기술 요구사항
