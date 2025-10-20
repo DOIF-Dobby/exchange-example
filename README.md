@@ -69,11 +69,11 @@ React를 필수로 사용해야 합니다.
 
 ### API Base URL 및 실시간 API 문서 (Swagger)
 
-API 서버는 `{서버_베이스_URL}` 에 배포되어 있습니다.
+API 서버는 `exchange-example.switchflow.biz` 에 배포되어 있습니다.
 
 전체 API 명세는 아래 Swagger UI 링크에서 실시간으로 확인하고 직접 테스트해볼 수 있습니다.
 
-* **Swagger UI**: `{서버_베이스_URL}/swagger-ui/index.html`
+* **Swagger UI**: `https://exchange-example.switchflow.biz/swagger-ui/index.html`
 
 ### 인증 (Authentication) API 호출 예시
 
@@ -81,9 +81,8 @@ API 서버는 `{서버_베이스_URL}` 에 배포되어 있습니다.
 
 ```bash
 # 1. 이메일로 로그인 요청
-curl -X POST "{서버_베이스_URL}/auth/login" \
-     -H "Content-Type: application/json" \
-     -d '{"email": "user@example.com"}'
+curl -X POST "https://exchange-example.switchflow.biz/auth/login" \
+     -d "email=user@example.com"
 
 # 2. 응답으로 받은 accessToken 확인
 # {
@@ -106,8 +105,8 @@ curl -X GET "{서버_베이스_URL}/wallets" \
     "code": "OK",
     "message": "정상적으로 처리되었습니다.",
     "data": {
-        "userId": 1,
-        "name": "김환전"
+        "memberId": 1,
+        "token": "eyJhbGciOiJIUzM4NCJ9..."
     }
 }
 ```
