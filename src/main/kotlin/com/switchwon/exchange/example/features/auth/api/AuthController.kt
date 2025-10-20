@@ -1,12 +1,14 @@
 package com.switchwon.exchange.example.features.auth.api
 
 import com.switchwon.exchange.example.features.auth.application.AuthService
+import com.switchwon.exchange.example.features.auth.application.dto.LoginRequest
 import com.switchwon.exchange.example.features.auth.application.dto.TokenResponse
 import com.switchwon.exchange.example.system.web.ApiResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import jakarta.validation.Valid
+import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @Tag(name = "Auth API", description = "인증 관련 API")
@@ -31,8 +33,8 @@ class AuthController(
     """
     )
     @PostMapping("/auth/login")
-    fun login(@RequestParam email: String): ApiResponse<TokenResponse> {
-        val tokenResponse = authService.login(email)
+    fun login(@ModelAttribute @Valid request: LoginRequest): ApiResponse<TokenResponse> {
+        val tokenResponse = authService.login(request.email)
         return ApiResponse.ok(tokenResponse)
     }
 }

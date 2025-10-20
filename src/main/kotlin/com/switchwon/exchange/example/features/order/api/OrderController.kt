@@ -30,7 +30,14 @@ class OrderController(
     /**
      * 환전 주문 요청
      */
-    @Operation(summary = "환전 주문 요청", description = "회원이 환전 주문을 요청합니다.")
+    @Operation(
+        summary = "환전 주문 요청", description = """
+        회원이 환전 주문을 요청합니다.
+        - fromCurrency가 KRW인 경우, 외화를 매수하는 주문입니다.
+        - fromCurrency가 외화인 경우, 외화를 매도하는 주문입니다.
+        - code: EXCHANGE_RATE_MISMATCH 400 에러 발생 시, 최신 환율을 다시 조회하여 주문을 시도해야 합니다.
+    """
+    )
     @PostMapping("/orders")
     fun order(@RequestBody @Valid request: OrderRequest): UnitApiResponse {
         orderService.order(
