@@ -1,5 +1,7 @@
 package com.switchwon.exchange.example.system.security
 
+import com.switchwon.exchange.example.features.member.domain.MemberId
+import com.switchwon.exchange.example.system.web.exception.UnauthorizedException
 import org.springframework.security.core.context.SecurityContextHolder
 
 class AuthenticationUtils {
@@ -16,6 +18,11 @@ class AuthenticationUtils {
 
         fun getCurrentMemberEmail(): String? {
             return getCurrentMember()?.email
+        }
+
+        fun requireCurrentMemberId(): MemberId {
+            return getCurrentMemberId()?.let { MemberId(it) }
+                ?: throw UnauthorizedException()
         }
     }
 }

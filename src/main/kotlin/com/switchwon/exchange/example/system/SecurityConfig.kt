@@ -16,7 +16,9 @@ import org.springframework.security.web.util.matcher.RequestMatcher
 class SecurityConfig {
 
     private val permitAllRequest: Array<RequestMatcher> = arrayOf(
-        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.POST, "/auth/login")
+        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.POST, "/auth/login"),
+        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/swagger-ui/**"),
+        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/v3/api-docs/**"),
     )
 
     @Bean

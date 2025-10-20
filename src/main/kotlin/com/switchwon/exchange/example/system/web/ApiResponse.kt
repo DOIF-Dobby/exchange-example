@@ -1,8 +1,16 @@
 package com.switchwon.exchange.example.system.web
 
+import io.swagger.v3.oas.annotations.media.Schema
+
+@Schema(
+    description = "API 응답 DTO",
+)
 data class ApiResponse<T>(
+    @field:Schema(description = "응답 코드", example = "OK")
     val code: String,
+    @field:Schema(description = "응답 메시지", example = "정상적으로 처리되었습니다.")
     val message: String,
+    @field:Schema(description = "응답 데이터")
     val data: T?
 ) {
     companion object {
