@@ -28,6 +28,7 @@ class SecurityConfig {
         simpleAuthenticationEntryPoint: SimpleAuthenticationEntryPoint
     ): SecurityFilterChain {
         httpSecurity
+            .cors { }
             .csrf { it.disable() }
             .httpBasic { it.disable() }
             .formLogin { it.disable() }
