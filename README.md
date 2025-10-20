@@ -35,10 +35,98 @@
         - 로그인 후 메인 페이지에서 사용자의 현재 지갑 잔액과 실시간 환율을 API로 조회하여 화면에 표시합니다.
         - 주기적(1분)으로 최신 환율을 조회하여 화면에 표시합니다.
     - 환전 견적 조회
-        - 사용자가 환전할 금액과 통화를 선택하면 `POST /orders/quote` API를 호출하여 환전 견적을 조회합니다.
+        - 사용자가 환전할 금액과 통화를 선택하면 `GET /orders/quote` API를 호출하여 환전 견적을 조회합니다.
         - 서버에서 받은 금액(원화)을 화면에 표시합니다.
     - 환전 실행
         - 사용자가 환전 금액을 입력하고 '환전하기' 버튼을 누르면 서버에 환전 요청 API를 보냅니다.
         - 환전 요청이 성공하면, 화면에 표시된 지갑 잔액 데이터가 자동으로 최신화되어야 합니다.
     - 환전 내역 조회
         - '내역 보기' 페이지에서 사용자의 모든 환전 내역을 API로 조회하여 목록 형태로 보여줍니다.
+
+---
+
+## API 문서 및 사용 가이드
+
+### API Base URL 및 실시간 API 문서 (Swagger)
+
+API 서버는 `{서버_베이스_URL}` 에 배포되어 있습니다.
+
+전체 API 명세는 아래 Swagger UI 링크에서 실시간으로 확인하고 직접 테스트해볼 수 있습니다.
+
+* **Swagger UI**: `{서버_베이스_URL}/swagger-ui/index.html`
+
+### 인증 (Authentication) API 호출 예시
+
+`POST /auth/login` API 호출과 토큰 사용법 예시입니다.
+
+```bash
+# 1. 이메일로 로그인 요청
+curl -X POST "{서버_베이스_URL}/auth/login" \
+     -H "Content-Type: application/json" \
+     -d '{"email": "user@example.com"}'
+
+# 2. 응답으로 받은 accessToken 확인
+# {
+#   "accessToken": "ey..."
+# }
+
+# 3. 발급받은 토큰을 사용하여 다른 API 호출
+curl -X GET "{서버_베이스_URL}/wallets" \
+     -H "Authorization: Bearer ey..."
+```
+
+### 공통 응답 및 에러 포맷
+
+모든 API 응답은 아래와 같은 `ApiResponse` 포맷을 따릅니다.
+
+#### 성공 응답 (HTTP 2xx)
+
+```json
+{
+    "code": "OK",
+    "message": "정상적으로 처리되었습니다.",
+    "data": {
+        "userId": 1,
+        "name": "김환전"
+    }
+}
+```
+
+#### 실패/에러 응답 (HTTP 4xx, 5xx)
+
+`code` 필드를 통해 에러의 종류를 구분할 수 있습니다.
+
+**1. 유효성 검사 실패 (Validation Error)**
+요청 바디의 값이 잘못된 경우 (`code: "VALIDATION_ERROR"`)
+
+```json
+{
+    "code": "VALIDATION_ERROR",
+    "message": "요청 데이터가 이상해요.",
+    "data": {
+        "amount": "환전 금액은 0보다 커야 합니다."
+    }
+}
+```
+
+**2. 비즈니스 로직 에러**
+잔액 부족 등 비즈니스 규칙에 위배될 경우 (예: `code: "WALLET_INSUFFICIENT_BALANCE"`)
+
+```json
+{
+    "code": "WALLET_INSUFFICIENT_BALANCE",
+    "message": "지갑의 잔액이 부족합니다.",
+    "data": null
+}
+```
+
+**3. 인증 실패**
+토큰이 없거나 유효하지 않은 경우 (`code: "UNAUTHORIZED"`)
+
+```jsongeo
+{
+  "code": "UNAUTHORIZED",
+  "message": "인증이 필요합니다.",
+  "data": null
+}
+```
