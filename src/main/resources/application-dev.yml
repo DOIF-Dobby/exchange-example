@@ -15,3 +15,7 @@ spring:
 jwt:
   key: 4124a8UTHzqoaa2brF37TaZQm9smn7q42LhEGr5Ps3PXIzDKOghCdsd3as
   expiration: PT1H
+
+
+server:
+  forward-headers-strategy: framework
