@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service
 @Service
 class OrderQuoteService(
     private val exchangeRateService: ExchangeRateService,
+    private val orderValidator: OrderValidator,
 ) {
 
     /**
@@ -17,6 +18,11 @@ class OrderQuoteService(
      * - 외화 매도인 경우, 해당 외화를 매도했을 때 받을 수 있는 KRW 금액을 반환합니다.
      */
     fun getQuote(request: OrderQuoteRequest): OrderQuoteResponse {
+        orderValidator.validateCurrencyPair(
+            fromCurrency = request.fromCurrency,
+            toCurrency = request.toCurrency,
+        )
+
         val isBuy = request.fromCurrency.isKrw()
         val forexCurrency = if (isBuy) request.toCurrency else request.fromCurrency
         val forexAmount = Money(currency = forexCurrency, amount = request.forexAmount)

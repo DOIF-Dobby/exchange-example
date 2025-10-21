@@ -19,10 +19,16 @@ class OrderService(
     private val orderRepository: OrderRepository,
     private val exchangeRateService: ExchangeRateService,
     private val walletService: WalletService,
+    private val orderValidator: OrderValidator,
 ) {
 
     @Transactional
     fun order(memberId: MemberId, request: OrderRequest) {
+        orderValidator.validateCurrencyPair(
+            fromCurrency = request.fromCurrency,
+            toCurrency = request.toCurrency,
+        )
+
         // 외화 매수 or 매도 확인
         val isBuy = request.fromCurrency.isKrw()
         val forexCurrency = if (isBuy) request.toCurrency else request.fromCurrency

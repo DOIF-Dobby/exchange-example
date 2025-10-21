@@ -71,7 +71,7 @@ class OrderController(
     """
     )
     @GetMapping("/orders/quote")
-    fun getQuote(@ModelAttribute request: OrderQuoteRequest): ApiResponse<OrderQuoteResponse> {
+    fun getQuote(@ModelAttribute @Valid request: OrderQuoteRequest): ApiResponse<OrderQuoteResponse> {
         val quoteResponse = orderQuoteService.getQuote(request)
         return ApiResponse.ok(quoteResponse)
     }
