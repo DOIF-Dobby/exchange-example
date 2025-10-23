@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 
 interface ExchangeRateRepository : JpaRepository<ExchangeRate, Long> {
-
     @Query(
         """
         select er
@@ -13,7 +12,7 @@ interface ExchangeRateRepository : JpaRepository<ExchangeRate, Long> {
         where er.currency = :currency
         order by er.createdAt desc
         limit 1
-    """
+    """,
     )
     fun findLatestExchangeRate(currency: Currency): ExchangeRate?
 
@@ -26,7 +25,7 @@ interface ExchangeRateRepository : JpaRepository<ExchangeRate, Long> {
             from ExchangeRate e2
             where e2.currency = e.currency
         )
-    """
+    """,
     )
     fun findLatestExchangeRates(): List<ExchangeRate>
 }

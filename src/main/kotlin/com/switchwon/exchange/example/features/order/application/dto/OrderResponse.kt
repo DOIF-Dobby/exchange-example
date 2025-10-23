@@ -25,16 +25,17 @@ data class OrderResponse(
     val orderedAt: LocalDateTime,
 ) {
     companion object {
-        fun from(order: Order) = order.run {
-            OrderResponse(
-                orderId = id.value,
-                fromCurrency = fromMoney.currency,
-                fromAmount = fromMoney.amount,
-                toCurrency = toMoney.currency,
-                toAmount = toMoney.amount,
-                appliedRate = appliedRate,
-                orderedAt = createdAt!!.truncatedTo(ChronoUnit.SECONDS)
-            )
-        }
+        fun from(order: Order) =
+            order.run {
+                OrderResponse(
+                    orderId = id.value,
+                    fromCurrency = fromMoney.currency,
+                    fromAmount = fromMoney.amount,
+                    toCurrency = toMoney.currency,
+                    toAmount = toMoney.amount,
+                    appliedRate = appliedRate,
+                    orderedAt = createdAt!!.truncatedTo(ChronoUnit.SECONDS),
+                )
+            }
     }
 }

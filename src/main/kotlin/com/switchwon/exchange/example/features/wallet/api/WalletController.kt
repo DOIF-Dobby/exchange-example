@@ -12,20 +12,21 @@ import org.springframework.web.bind.annotation.RestController
 @Tag(name = "Wallet API", description = "지갑 관련 API")
 @RestController
 class WalletController(
-    private val walletService: WalletService
+    private val walletService: WalletService,
 ) {
-
     /**
      * 회원의 지갑 조회
      * - 회원이 보유한 통화별 잔액을 조회합니다.
      */
     @Operation(
-        summary = "지갑 조회", description = "회원의 지갑을 조회합니다. 회원이 보유한 통화별 잔액을 반환합니다."
+        summary = "지갑 조회",
+        description = "회원의 지갑을 조회합니다. 회원이 보유한 통화별 잔액을 반환합니다.",
     )
     @GetMapping("/wallets")
     fun getWallets(): ApiResponse<WalletSummaryResponse> {
-        val walletSummary = walletService
-            .findWalletSummary(AuthenticationUtils.requireCurrentMemberId())
+        val walletSummary =
+            walletService
+                .findWalletSummary(AuthenticationUtils.requireCurrentMemberId())
 
         return ApiResponse.ok(walletSummary)
     }

@@ -20,14 +20,12 @@ class WalletService(
     private val memberService: MemberService,
     private val exchangeRateService: ExchangeRateService,
 ) {
-
     private val throwWalletNotFoundBlock = { currency: Currency ->
         throw BadRequestException(
             code = "WALLET_NOT_FOUND",
-            message = "해당 통화의 지갑을 찾을 수 없습니다. 통화: $currency"
+            message = "해당 통화의 지갑을 찾을 수 없습니다. 통화: $currency",
         )
     }
-
 
     /**
      * 회원의 지갑 요약 정보를 조회합니다.
@@ -49,7 +47,7 @@ class WalletService(
 
         return WalletSummaryResponse(
             totalKrwBalance = totalKrwBalance,
-            wallets = wallets.map { WalletResponse.from(it) }
+            wallets = wallets.map { WalletResponse.from(it) },
         )
     }
 
@@ -70,7 +68,11 @@ class WalletService(
      *   다른 통화의 지갑에 입금합니다.
      */
     @Transactional
-    fun executeExchange(memberId: MemberId, withdrawMoney: Money, depositMoney: Money) {
+    fun executeExchange(
+        memberId: MemberId,
+        withdrawMoney: Money,
+        depositMoney: Money,
+    ) {
         val wallets = findWalletsByMemberId(memberId = memberId)
         val fromWallet = wallets.find { it.currency == withdrawMoney.currency } ?: throwWalletNotFoundBlock(withdrawMoney.currency)
         val toWallet = wallets.find { it.currency == depositMoney.currency } ?: throwWalletNotFoundBlock(depositMoney.currency)
@@ -78,5 +80,4 @@ class WalletService(
         fromWallet.withdraw(withdrawMoney)
         toWallet.deposit(depositMoney)
     }
-
 }

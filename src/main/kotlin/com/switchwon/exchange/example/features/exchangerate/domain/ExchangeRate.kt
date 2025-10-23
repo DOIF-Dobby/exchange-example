@@ -22,8 +22,8 @@ import java.math.RoundingMode
 @Table(
     name = "exchange_rate",
     indexes = [
-        Index(name = "idx_exchange_rate_currency_created_at", columnList = "currency, createdAt DESC")
-    ]
+        Index(name = "idx_exchange_rate_currency_created_at", columnList = "currency, createdAt DESC"),
+    ],
 )
 @Entity
 class ExchangeRate(
@@ -37,7 +37,6 @@ class ExchangeRate(
     @Column(name = "base_rate", nullable = false, updatable = false)
     val baseRate: BigDecimal,
 ) : BaseEntity() {
-
     init {
         if (currency == Currency.KRW) {
             throw InvalidExchangeRateCurrencyException()

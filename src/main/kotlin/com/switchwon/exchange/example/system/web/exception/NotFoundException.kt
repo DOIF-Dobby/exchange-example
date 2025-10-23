@@ -6,7 +6,7 @@ class NotFoundException(
     code: String = "NOT_FOUND",
     message: String = "요청한 URL을 찾을 수 없어요.",
 ) : ApiException(
-    httpStatus = HttpStatus.NOT_FOUND,
-    code = code,
-    message = message,
-)
+        httpStatus = HttpStatus.NOT_FOUND,
+        code = code,
+        message = message,
+    )

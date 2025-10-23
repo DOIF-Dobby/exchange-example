@@ -14,8 +14,11 @@ import org.springframework.web.filter.OncePerRequestFilter
 class AuthorizationHeaderJwtFilter(
     private val jwtService: JwtService,
 ) : OncePerRequestFilter() {
-
-    override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
+    override fun doFilterInternal(
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+        filterChain: FilterChain,
+    ) {
         try {
             val token = extractTokenFromHeader(request)
             if (!token.isNullOrEmpty() && jwtService.validateToken(token)) {
@@ -23,7 +26,6 @@ class AuthorizationHeaderJwtFilter(
                 val tokenAuthentication = TokenAuthentication(tokenUser)
                 SecurityContextHolder.getContext().authentication = tokenAuthentication
             }
-
         } catch (e: Exception) {
             log.error(e) { "Error processing request: ${e.message}" }
         }
@@ -50,10 +52,10 @@ class AuthorizationHeaderJwtFilter(
     private fun convertTokenToUser(token: String): TokenMember {
         val claims = jwtService.getClaims(token)
         val userId = claims.payload.subject ?: throw IllegalArgumentException("User ID not found in token claims")
-        val email = claims.payload.get("email", String::class.java)
-            ?: throw IllegalArgumentException("Email not found in token claims")
+        val email =
+            claims.payload.get("email", String::class.java)
+                ?: throw IllegalArgumentException("Email not found in token claims")
 
         return TokenMember(userId.toLong(), email)
     }
-
 }

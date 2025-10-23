@@ -12,14 +12,15 @@ class Money(
     val currency: Currency,
     amount: BigDecimal,
 ) : Comparable<Money> {
-
     // 통화 타입에 맞는 자릿수 만큼 roundingMode 적용해서 금액 설정
     val amount: BigDecimal = amount.setScale(currency.roundingScale, currency.roundingMode)
 
     fun isSameCurrency(other: Money) = currency == other.currency
 
     fun isZero(): Boolean = amount.compareTo(BigDecimal.ZERO) == 0
+
     fun isPositive(): Boolean = amount > BigDecimal.ZERO
+
     fun isNegative(): Boolean = amount < BigDecimal.ZERO
 
     fun formatted(): String {
@@ -28,9 +29,13 @@ class Money(
     }
 
     operator fun plus(other: Money) = operateMoney(other) { a, b -> a + b }
+
     operator fun minus(other: Money) = operateMoney(other) { a, b -> a - b }
+
     operator fun times(other: Number) = Money(currency, amount * BigDecimal(other.toString()))
-    operator fun div(other: Number) = Money(currency, amount.divide(BigDecimal(other.toString()), currency.roundingScale, currency.roundingMode))
+
+    operator fun div(other: Number) =
+        Money(currency, amount.divide(BigDecimal(other.toString()), currency.roundingScale, currency.roundingMode))
 
     /**
      * 두 Money 객체의 통화가 같은지 검증
@@ -75,12 +80,15 @@ class Money(
         fun of(currency: Currency, amount: BigDecimal) = Money(currency, amount)
 
         fun krw(amount: BigDecimal) = Money(Currency.KRW, amount)
+
         fun krw(amount: Number) = Money(Currency.KRW, BigDecimal(amount.toString()))
 
         fun usd(amount: BigDecimal) = Money(Currency.USD, amount)
+
         fun usd(amount: Number) = Money(Currency.USD, BigDecimal(amount.toString()))
 
         fun jpy(amount: BigDecimal) = Money(Currency.JPY, amount)
+
         fun jpy(amount: Number) = Money(Currency.JPY, BigDecimal(amount.toString()))
     }
 }

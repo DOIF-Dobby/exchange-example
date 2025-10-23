@@ -12,7 +12,7 @@ class LoggingFilter : AbstractRequestLoggingFilter() {
         val memberEmail = AuthenticationUtils.getCurrentMemberEmail()
 
         if (isLoggable(request)) {
-            log.info { "$message >> memberId: ${memberId}, memberEmail: $memberEmail" }
+            log.info { "$message >> memberId: $memberId, memberEmail: $memberEmail" }
         }
     }
 
@@ -21,7 +21,7 @@ class LoggingFilter : AbstractRequestLoggingFilter() {
         val memberEmail = AuthenticationUtils.getCurrentMemberEmail()
 
         if (isLoggable(request)) {
-            log.info { "$message >> memberId: ${memberId}, memberEmail: $memberEmail" }
+            log.info { "$message >> memberId: $memberId, memberEmail: $memberEmail" }
         }
     }
 
@@ -37,16 +37,17 @@ class LoggingFilter : AbstractRequestLoggingFilter() {
     }
 
     companion object {
-        private val exclusivePaths = listOf(
-            "/actuator",
-            "/error",
-            "/favicon.ico",
-            "/static",
-            "/public",
-            "/resources",
-            "/webjars",
-            "/swagger-ui/**",
-            "/v3/api-docs/**"
-        )
+        private val exclusivePaths =
+            listOf(
+                "/actuator",
+                "/error",
+                "/favicon.ico",
+                "/static",
+                "/public",
+                "/resources",
+                "/webjars",
+                "/swagger-ui/**",
+                "/v3/api-docs/**",
+            )
     }
 }

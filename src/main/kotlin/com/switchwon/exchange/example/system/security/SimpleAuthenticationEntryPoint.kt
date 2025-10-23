@@ -15,8 +15,11 @@ import java.nio.charset.StandardCharsets
 class SimpleAuthenticationEntryPoint(
     private val objectMapper: ObjectMapper,
 ) : AuthenticationEntryPoint {
-
-    override fun commence(request: HttpServletRequest, response: HttpServletResponse, authException: AuthenticationException) {
+    override fun commence(
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+        authException: AuthenticationException,
+    ) {
         log.warn { "Request: [ ${request.method} ${request.requestURI} ] Unauthorized" }
 
         response.contentType = MediaType.APPLICATION_JSON_VALUE
@@ -24,10 +27,11 @@ class SimpleAuthenticationEntryPoint(
         response.status = HttpServletResponse.SC_UNAUTHORIZED
 
         objectMapper.writeValue(
-            response.writer, ApiResponse.fail(
+            response.writer,
+            ApiResponse.fail(
                 code = "UNAUTHORIZED",
                 message = "인증되지 않은 요청입니다.",
-            )
+            ),
         )
     }
 }

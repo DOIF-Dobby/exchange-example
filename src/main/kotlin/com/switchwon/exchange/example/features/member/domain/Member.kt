@@ -12,7 +12,6 @@ class Member(
     @Column(nullable = false, unique = true)
     val email: String,
 ) : BaseEntity() {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")

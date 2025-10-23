@@ -9,12 +9,13 @@ data class MemberResponse(
     val joinedAt: LocalDateTime,
 ) {
     companion object {
-        fun from(member: Member) = member.run {
-            MemberResponse(
-                id = id.value,
-                email = email,
-                joinedAt = createdAt!!,
-            )
-        }
+        fun from(member: Member) =
+            member.run {
+                MemberResponse(
+                    id = id.value,
+                    email = email,
+                    joinedAt = createdAt!!,
+                )
+            }
     }
 }

@@ -17,7 +17,6 @@ import org.springframework.web.servlet.resource.NoResourceFoundException
 
 @ControllerAdvice
 class GlobalExceptionHandler {
-
     /**
      * Exception 처리
      */
@@ -25,7 +24,8 @@ class GlobalExceptionHandler {
     fun handleException(e: Exception): ResponseEntity<UnitApiResponse> {
         log.error { "${e::class.simpleName}: ${e.message}" }
 
-        return ResponseEntity.internalServerError()
+        return ResponseEntity
+            .internalServerError()
             .body(ApiResponse.fail())
     }
 
@@ -36,13 +36,14 @@ class GlobalExceptionHandler {
     fun handleDomainException(e: DomainException): ResponseEntity<UnitApiResponse> {
         log.error { "${e::class.simpleName}: ${e.message} | localizedMessage: ${e.localizedMessage} | code: ${e.code} " }
 
-        return ResponseEntity.badRequest()
+        return ResponseEntity
+            .badRequest()
             .body(
                 ApiResponse(
                     code = e.code,
                     message = e.localizedMessage,
-                    data = null
-                )
+                    data = null,
+                ),
             )
     }
 
@@ -51,15 +52,18 @@ class GlobalExceptionHandler {
      */
     @ExceptionHandler(ApiException::class)
     fun handleApiException(e: ApiException): ResponseEntity<UnitApiResponse> {
-        log.error { "${e::class.simpleName}: ${e.message} | localizedMessage: ${e.localizedMessage} | code: ${e.code} | httpStatus: ${e.httpStatus}" }
+        log.error {
+            "${e::class.simpleName}: ${e.message} | localizedMessage: ${e.localizedMessage} | code: ${e.code} | httpStatus: ${e.httpStatus}"
+        }
 
-        return ResponseEntity.status(e.httpStatus)
+        return ResponseEntity
+            .status(e.httpStatus)
             .body(
                 ApiResponse(
                     code = e.code,
                     message = e.localizedMessage,
-                    data = null
-                )
+                    data = null,
+                ),
             )
     }
 
@@ -77,14 +81,14 @@ class GlobalExceptionHandler {
             invalidFieldMap[it.field] = it.defaultMessage ?: ""
         }
 
-
-        return ResponseEntity.badRequest()
+        return ResponseEntity
+            .badRequest()
             .body(
                 ApiResponse(
                     code = "VALIDATION_ERROR",
                     message = "요청 데이터가 이상해요.",
                     data = invalidFieldMap,
-                )
+                ),
             )
     }
 
@@ -111,21 +115,23 @@ class GlobalExceptionHandler {
                 val field = fromClass.getDeclaredField(fieldName) // 문제 있는 필드
                 val type = field.type // 문제 있는 필드의 타입
 
-                invalidFieldMap[fieldName] = if (field.type.isEnum) {
-                    "Invalid enum value. Please use one of [${type.enumConstants.joinToString()}]"
-                } else {
-                    "Invalid value."
-                }
+                invalidFieldMap[fieldName] =
+                    if (field.type.isEnum) {
+                        "Invalid enum value. Please use one of [${type.enumConstants.joinToString()}]"
+                    } else {
+                        "Invalid value."
+                    }
             }
         }
 
-        return ResponseEntity.badRequest()
+        return ResponseEntity
+            .badRequest()
             .body(
                 ApiResponse(
                     code = "VALIDATION_ERROR",
                     message = "요청 데이터가 이상해요.",
                     data = invalidFieldMap,
-                )
+                ),
             )
     }
 
@@ -133,31 +139,34 @@ class GlobalExceptionHandler {
     fun handleNoResourceFoundException(e: NoResourceFoundException): ResponseEntity<UnitApiResponse> {
         log.error { "${e::class.simpleName}: ${e.message}" }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
             .body(
                 ApiResponse(
                     code = "NOT_FOUND",
                     message = "요청한 URL을 찾을 수 없어요.",
-                    data = null
-                )
+                    data = null,
+                ),
             )
     }
 
     @ExceptionHandler(MissingServletRequestParameterException::class)
-    fun handleMissingServletRequestParameterException(e: MissingServletRequestParameterException): ResponseEntity<ApiResponse<Map<String, String>>> {
+    fun handleMissingServletRequestParameterException(
+        e: MissingServletRequestParameterException,
+    ): ResponseEntity<ApiResponse<Map<String, String>>> {
         log.error { "${e::class.simpleName}: ${e.message}" }
 
         val missingParamName = e.parameterName
         val errorData = mapOf("missingParameter" to missingParamName)
 
-        return ResponseEntity.badRequest()
+        return ResponseEntity
+            .badRequest()
             .body(
                 ApiResponse(
                     code = "MISSING_PARAMETER",
                     message = "필수 요청 파라미터가 누락되었어요.",
-                    data = errorData
-                )
+                    data = errorData,
+                ),
             )
     }
-
 }

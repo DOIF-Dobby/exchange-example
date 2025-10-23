@@ -11,7 +11,6 @@ class AuthService(
     private val memberService: MemberService,
     private val jwtService: JwtService,
 ) {
-
     /**
      * 이메일로 회원을 조회하고, 없으면 새로 등록합니다.
      * JWT 토큰을 생성하여 반환합니다.
@@ -32,9 +31,10 @@ class AuthService(
     private fun generateTokenByMember(member: Member): String {
         return jwtService.generateToken(
             subject = member.id.value.toString(),
-            claims = mapOf(
-                "email" to member.email,
-            )
+            claims =
+                mapOf(
+                    "email" to member.email,
+                ),
         )
     }
 }

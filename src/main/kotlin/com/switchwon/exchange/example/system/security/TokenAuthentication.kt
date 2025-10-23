@@ -5,7 +5,6 @@ import org.springframework.security.authentication.AbstractAuthenticationToken
 class TokenAuthentication(
     private val principal: TokenMember,
 ) : AbstractAuthenticationToken(emptyList()) {
-
     init {
         isAuthenticated = true
     }
@@ -13,5 +12,4 @@ class TokenAuthentication(
     override fun getPrincipal(): Any = principal
 
     override fun getCredentials(): Any? = null
-
 }

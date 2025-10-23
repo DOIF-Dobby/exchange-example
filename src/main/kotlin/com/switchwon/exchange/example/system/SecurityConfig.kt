@@ -14,18 +14,18 @@ import org.springframework.security.web.util.matcher.RequestMatcher
 
 @Configuration
 class SecurityConfig {
-
-    private val permitAllRequest: Array<RequestMatcher> = arrayOf(
-        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.POST, "/auth/login"),
-        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/swagger-ui/**"),
-        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/v3/api-docs/**"),
-    )
+    private val permitAllRequest: Array<RequestMatcher> =
+        arrayOf(
+            PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.POST, "/auth/login"),
+            PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/swagger-ui/**"),
+            PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/v3/api-docs/**"),
+        )
 
     @Bean
     fun securityFilterChain(
         httpSecurity: HttpSecurity,
         authorizationHeaderJwtFilter: AuthorizationHeaderJwtFilter,
-        simpleAuthenticationEntryPoint: SimpleAuthenticationEntryPoint
+        simpleAuthenticationEntryPoint: SimpleAuthenticationEntryPoint,
     ): SecurityFilterChain {
         httpSecurity
             .cors { }
@@ -36,8 +36,7 @@ class SecurityConfig {
             .authorizeHttpRequests {
                 it.requestMatchers(*permitAllRequest).permitAll()
                 it.anyRequest().authenticated()
-            }
-            .addFilterBefore(authorizationHeaderJwtFilter, UsernamePasswordAuthenticationFilter::class.java)
+            }.addFilterBefore(authorizationHeaderJwtFilter, UsernamePasswordAuthenticationFilter::class.java)
             .exceptionHandling {
                 it.authenticationEntryPoint(simpleAuthenticationEntryPoint)
             }

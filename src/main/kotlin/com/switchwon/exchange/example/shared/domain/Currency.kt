@@ -16,15 +16,14 @@ enum class Currency(
         roundingScale = 0, // 원화는 소수점으로 표시하지 않음
         roundingMode = RoundingMode.DOWN,
         allowedOrderScale = 0, // 원화는 소수점 없이 정수 단위로만 거래
-        decimalFormat = DecimalFormat("#,###")
+        decimalFormat = DecimalFormat("#,###"),
     ),
     USD,
     JPY(
         unit = 100, // 일본 엔화는 100엔 단위로 거래
-        allowedOrderScale = 0 // 일본 엔화는 소수점 없이 정수 단위로만 거래
+        allowedOrderScale = 0, // 일본 엔화는 소수점 없이 정수 단위로만 거래
     ),
     ;
-
 
     fun isKrw(): Boolean {
         return this == KRW
@@ -38,7 +37,7 @@ enum class Currency(
             throw InvalidAmountScaleException(
                 currency = this,
                 expectedScale = this.allowedOrderScale,
-                actualScale = amount.scale()
+                actualScale = amount.scale(),
             )
         }
     }

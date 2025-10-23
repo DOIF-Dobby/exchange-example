@@ -8,9 +8,8 @@ import org.springframework.stereotype.Service
 @Service
 class CreateNewMemberService(
     private val memberRepository: MemberRepository,
-    private val initializeWalletService: InitializeWalletService
+    private val initializeWalletService: InitializeWalletService,
 ) {
-
     /**
      * 새 회원을 등록하고, 지갑을 초기화합니다.
      * - 이메일로 회원을 조회하고, 없으면 새로 등록합니다.
@@ -30,6 +29,5 @@ class CreateNewMemberService(
 
         // 4. 생성된 회원 반환
         return newMember
-
     }
 }

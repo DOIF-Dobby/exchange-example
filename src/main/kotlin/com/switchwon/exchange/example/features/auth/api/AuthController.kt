@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController
 class AuthController(
     private val authService: AuthService,
 ) {
-
     /**
      * 로그인 요청을 처리합니다.
      * 이메일로 회원을 조회하고, 없으면 새로 등록합니다.
@@ -30,10 +29,12 @@ class AuthController(
         - 회원이 존재하면 해당 회원으로 로그인합니다.
         - 최초 로그인 시 회원의 지갑이 생성됩니다. 잔액은 KRW: 1,000,000 / USD: O / JPY: 0 으로 초기화됩니다.
         - 로그인 성공 시 JWT 인증 토큰을 반환합니다.
-    """
+    """,
     )
     @PostMapping("/auth/login")
-    fun login(@ModelAttribute @Valid request: LoginRequest): ApiResponse<TokenResponse> {
+    fun login(
+        @ModelAttribute @Valid request: LoginRequest,
+    ): ApiResponse<TokenResponse> {
         val tokenResponse = authService.login(request.email)
         return ApiResponse.ok(tokenResponse)
     }

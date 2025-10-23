@@ -21,14 +21,15 @@ data class ExchangeRateResponse(
     val applyDateTime: LocalDateTime,
 ) {
     companion object {
-        fun from(exchangeRate: ExchangeRate) = exchangeRate.run {
-            ExchangeRateResponse(
-                exchangeRateId = id.value,
-                currency = currency,
-                rate = rate,
-                changePercentage = changePercentage,
-                applyDateTime = createdAt!!.truncatedTo(ChronoUnit.SECONDS),
-            )
-        }
+        fun from(exchangeRate: ExchangeRate) =
+            exchangeRate.run {
+                ExchangeRateResponse(
+                    exchangeRateId = id.value,
+                    currency = currency,
+                    rate = rate,
+                    changePercentage = changePercentage,
+                    applyDateTime = createdAt!!.truncatedTo(ChronoUnit.SECONDS),
+                )
+            }
     }
 }

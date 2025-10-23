@@ -28,7 +28,6 @@ class Wallet(
 
     currency: Currency,
 ) : BaseEntity() {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "wallet_id")
@@ -46,7 +45,6 @@ class Wallet(
 
     val balanceAmount: BigDecimal
         get() = balance.amount
-
 
     /**
      * 지갑에 금액을 입금합니다. 입금액은 반드시 0 이상이어야 합니다.

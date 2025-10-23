@@ -13,7 +13,6 @@ import javax.crypto.SecretKey
 class JwtService(
     private val properties: JwtProperties,
 ) {
-
     private val secretKey: SecretKey by lazy {
         Keys.hmacShaKeyFor(properties.key.toByteArray(StandardCharsets.UTF_8))
     }
@@ -26,7 +25,8 @@ class JwtService(
         val expiredMills = issuedAt.time + properties.expiration.toMillis()
         val expiration = Date(expiredMills)
 
-        return Jwts.builder()
+        return Jwts
+            .builder()
             .subject(subject)
             .claims(claims)
             .issuedAt(issuedAt)
@@ -40,7 +40,8 @@ class JwtService(
      * 이 과정에서 서명, 만료 시간 등이 올바르지 않으면 예외 발생
      */
     fun getClaims(token: String): Jws<Claims> {
-        return Jwts.parser()
+        return Jwts
+            .parser()
             .verifyWith(secretKey)
             .build()
             .parseSignedClaims(token)

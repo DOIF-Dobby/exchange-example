@@ -6,5 +6,5 @@ import java.time.Duration
 @ConfigurationProperties(prefix = "jwt")
 data class JwtProperties(
     val key: String,
-    val expiration: Duration
+    val expiration: Duration,
 )

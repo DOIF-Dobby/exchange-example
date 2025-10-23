@@ -15,12 +15,13 @@ data class WalletResponse(
     val balance: BigDecimal,
 ) {
     companion object {
-        fun from(wallet: Wallet) = wallet.run {
-            WalletResponse(
-                walletId = id.value,
-                currency = currency,
-                balance = balanceAmount
-            )
-        }
+        fun from(wallet: Wallet) =
+            wallet.run {
+                WalletResponse(
+                    walletId = id.value,
+                    currency = currency,
+                    balance = balanceAmount,
+                )
+            }
     }
 }

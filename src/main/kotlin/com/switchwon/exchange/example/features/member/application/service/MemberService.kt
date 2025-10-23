@@ -12,9 +12,8 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class MemberService(
     private val memberRepository: MemberRepository,
-    private val createNewMemberService: CreateNewMemberService
+    private val createNewMemberService: CreateNewMemberService,
 ) {
-
     /**
      * 이메일로 회원을 조회하고, 없으면 새로 등록합니다.
      */
@@ -30,9 +29,10 @@ class MemberService(
      */
     @Transactional(readOnly = true)
     fun findMember(memberId: MemberId): Member {
-        val member = memberRepository.findByIdOrThrow(memberId.value) {
-            NotFoundException(code = "MEMBER_NOT_FOUND", message = "회원이 존재하지 않습니다. ID: $memberId")
-        }
+        val member =
+            memberRepository.findByIdOrThrow(memberId.value) {
+                NotFoundException(code = "MEMBER_NOT_FOUND", message = "회원이 존재하지 않습니다. ID: $memberId")
+            }
 
         return member
     }

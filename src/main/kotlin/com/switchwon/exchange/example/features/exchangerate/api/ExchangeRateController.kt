@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RestController
 @Tag(name = "Exchange Rate API", description = "환율 관련 API")
 @RestController
 class ExchangeRateController(
-    private val exchangeRateService: ExchangeRateService
+    private val exchangeRateService: ExchangeRateService,
 ) {
-
     /**
      * 최신 환율 조회
      */

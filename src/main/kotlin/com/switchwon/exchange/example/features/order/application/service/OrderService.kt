@@ -21,7 +21,6 @@ class OrderService(
     private val walletService: WalletService,
     private val orderValidator: OrderValidator,
 ) {
-
     @Transactional
     fun order(memberId: MemberId, request: OrderRequest) {
         orderValidator.validateCurrencyPair(
@@ -46,13 +45,13 @@ class OrderService(
             executeBuyOrder(
                 memberId = memberId,
                 request = request,
-                rate = latestExchangeRate
+                rate = latestExchangeRate,
             )
         } else {
             executeSellOrder(
                 memberId = memberId,
                 request = request,
-                rate = latestExchangeRate
+                rate = latestExchangeRate,
             )
         }
     }
@@ -64,7 +63,7 @@ class OrderService(
         if (requestId != latestId) {
             throw BadRequestException(
                 code = "EXCHANGE_RATE_MISMATCH",
-                message = "요청한 환율 ID와 최신 환율 ID가 일치하지 않습니다. 요청: ${requestId.value}, 최신: ${latestId.value}"
+                message = "요청한 환율 ID와 최신 환율 ID가 일치하지 않습니다. 요청: ${requestId.value}, 최신: ${latestId.value}",
             )
         }
     }
@@ -72,7 +71,11 @@ class OrderService(
     /**
      * 외화 매수 주문을 실행합니다. (KRW -> Forex)
      */
-    private fun executeBuyOrder(memberId: MemberId, request: OrderRequest, rate: ExchangeRate) {
+    private fun executeBuyOrder(
+        memberId: MemberId,
+        request: OrderRequest,
+        rate: ExchangeRate,
+    ) {
         // 외화 매수할 금액
         val forexAmount = Money(currency = request.toCurrency, amount = request.forexAmount)
         // 필요한 KRW 금액 계산
@@ -88,14 +91,18 @@ class OrderService(
             memberId = memberId,
             fromMoney = requiredKrwAmount,
             toMoney = forexAmount,
-            appliedRate = rate
+            appliedRate = rate,
         )
     }
 
     /**
      * 외화 매도 주문을 실행합니다. (Forex -> KRW)
      */
-    private fun executeSellOrder(memberId: MemberId, request: OrderRequest, rate: ExchangeRate) {
+    private fun executeSellOrder(
+        memberId: MemberId,
+        request: OrderRequest,
+        rate: ExchangeRate,
+    ) {
         // 외화 매도할 금액
         val forexAmount = Money(currency = request.fromCurrency, amount = request.forexAmount)
         // 받게 될 KRW 금액 계산
@@ -104,27 +111,33 @@ class OrderService(
         walletService.executeExchange(
             memberId = memberId,
             withdrawMoney = forexAmount,
-            depositMoney = receivedKrwAmount
+            depositMoney = receivedKrwAmount,
         )
 
         saveOrder(
             memberId = memberId,
             fromMoney = forexAmount,
             toMoney = receivedKrwAmount,
-            appliedRate = rate
+            appliedRate = rate,
         )
     }
 
     /**
      * Order 엔티티 저장
      */
-    private fun saveOrder(memberId: MemberId, fromMoney: Money, toMoney: Money, appliedRate: ExchangeRate) {
-        val order = Order(
-            memberId = memberId,
-            fromMoney = fromMoney,
-            toMoney = toMoney,
-            appliedRate = appliedRate.rate
-        )
+    private fun saveOrder(
+        memberId: MemberId,
+        fromMoney: Money,
+        toMoney: Money,
+        appliedRate: ExchangeRate,
+    ) {
+        val order =
+            Order(
+                memberId = memberId,
+                fromMoney = fromMoney,
+                toMoney = toMoney,
+                appliedRate = appliedRate.rate,
+            )
 
         orderRepository.save(order)
     }

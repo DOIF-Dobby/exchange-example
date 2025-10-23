@@ -26,23 +26,25 @@ class OrderController(
     private val orderFindService: OrderFindService,
     private val orderQuoteService: OrderQuoteService,
 ) {
-
     /**
      * 환전 주문 요청
      */
     @Operation(
-        summary = "환전 주문 요청", description = """
+        summary = "환전 주문 요청",
+        description = """
         회원이 환전 주문을 요청합니다.
         - fromCurrency가 KRW인 경우, 외화를 매수하는 주문입니다.
         - fromCurrency가 외화인 경우, 외화를 매도하는 주문입니다.
         - code: EXCHANGE_RATE_MISMATCH 400 에러 발생 시, 최신 환율을 다시 조회하여 주문을 시도해야 합니다.
-    """
+    """,
     )
     @PostMapping("/orders")
-    fun order(@RequestBody @Valid request: OrderRequest): UnitApiResponse {
+    fun order(
+        @RequestBody @Valid request: OrderRequest,
+    ): UnitApiResponse {
         orderService.order(
             memberId = AuthenticationUtils.requireCurrentMemberId(),
-            request = request
+            request = request,
         )
 
         return ApiResponse.ok()
@@ -54,8 +56,9 @@ class OrderController(
     @Operation(summary = "환전 주문 내역 조회", description = "회원의 환전 주문 내역을 조회합니다.")
     @GetMapping("/orders")
     fun getOrders(): ApiResponse<List<OrderResponse>> {
-        val orders = orderFindService
-            .findOrderResponsesByMemberId(AuthenticationUtils.requireCurrentMemberId())
+        val orders =
+            orderFindService
+                .findOrderResponsesByMemberId(AuthenticationUtils.requireCurrentMemberId())
 
         return ApiResponse.ok(orders)
     }
@@ -64,14 +67,17 @@ class OrderController(
      * 환전 주문 견적 조회
      */
     @Operation(
-        summary = "환전 주문 견적 조회", description = """
+        summary = "환전 주문 견적 조회",
+        description = """
         환전 주문을 위한 견적을 조회합니다.
         - 외화 매수인 경우, 해당 외화를 매수하기 위해 필요한 KRW 금액을 반환합니다.
         - 외화 매도인 경우, 해당 외화를 매도했을 때 받을 수 있는 KRW 금액을 반환합니다.
-    """
+    """,
     )
     @GetMapping("/orders/quote")
-    fun getQuote(@ModelAttribute @Valid request: OrderQuoteRequest): ApiResponse<OrderQuoteResponse> {
+    fun getQuote(
+        @ModelAttribute @Valid request: OrderQuoteRequest,
+    ): ApiResponse<OrderQuoteResponse> {
         val quoteResponse = orderQuoteService.getQuote(request)
         return ApiResponse.ok(quoteResponse)
     }

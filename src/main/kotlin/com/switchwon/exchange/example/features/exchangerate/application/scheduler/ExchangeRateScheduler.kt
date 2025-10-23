@@ -10,9 +10,8 @@ import kotlin.random.Random
 
 @Component
 class ExchangeRateScheduler(
-    private val exchangeRateService: ExchangeRateService
+    private val exchangeRateService: ExchangeRateService,
 ) {
-
     @Scheduled(cron = "0 * * * * *")
     fun triggerCreateNewExchangeRate() {
         generateRandomUsd().also {
@@ -20,7 +19,7 @@ class ExchangeRateScheduler(
 
             exchangeRateService.createExchangeRate(
                 currency = Currency.USD,
-                newRate = it
+                newRate = it,
             )
         }
 
@@ -29,7 +28,7 @@ class ExchangeRateScheduler(
 
             exchangeRateService.createExchangeRate(
                 currency = Currency.JPY,
-                newRate = it
+                newRate = it,
             )
         }
     }

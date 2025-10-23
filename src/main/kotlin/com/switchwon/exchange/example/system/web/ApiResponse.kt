@@ -11,15 +11,14 @@ data class ApiResponse<T>(
     @field:Schema(description = "응답 메시지", example = "정상적으로 처리되었습니다.")
     val message: String,
     @field:Schema(description = "응답 데이터")
-    val data: T?
+    val data: T?,
 ) {
     companion object {
-
         fun ok(): ApiResponse<Unit> {
             return ApiResponse(
                 code = "OK",
                 message = "정상적으로 처리되었습니다.",
-                data = Unit
+                data = Unit,
             )
         }
 
@@ -27,7 +26,7 @@ data class ApiResponse<T>(
             return ApiResponse(
                 code = "OK",
                 message = "정상적으로 처리되었습니다.",
-                data = data
+                data = data,
             )
         }
 
@@ -35,7 +34,7 @@ data class ApiResponse<T>(
             return ApiResponse(
                 code = code,
                 message = message,
-                data = Unit
+                data = Unit,
             )
         }
 
@@ -43,7 +42,7 @@ data class ApiResponse<T>(
             return ApiResponse(
                 code = "FAIL",
                 message = message,
-                data = data
+                data = data,
             )
         }
     }

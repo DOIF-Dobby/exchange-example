@@ -11,9 +11,8 @@ import java.math.BigDecimal
 
 @Service
 class ExchangeRateService(
-    private val exchangeRateRepository: ExchangeRateRepository
+    private val exchangeRateRepository: ExchangeRateRepository,
 ) {
-
     /**
      * 특정 통화의 최신 환율을 조회합니다.
      * - 환율이 존재하지 않으면 예외를 발생시킵니다.
@@ -29,7 +28,8 @@ class ExchangeRateService(
      */
     @Transactional(readOnly = true)
     fun findLatestExchangeRateResponses(): List<ExchangeRateResponse> {
-        return exchangeRateRepository.findLatestExchangeRates()
+        return exchangeRateRepository
+            .findLatestExchangeRates()
             .map { ExchangeRateResponse.from(it) }
     }
 
@@ -39,7 +39,8 @@ class ExchangeRateService(
      */
     @Transactional(readOnly = true)
     fun findLatestExchangeRateMap(): Map<Currency, ExchangeRate> {
-        return exchangeRateRepository.findLatestExchangeRates()
+        return exchangeRateRepository
+            .findLatestExchangeRates()
             .associateBy { it.currency }
     }
 
@@ -58,7 +59,7 @@ class ExchangeRateService(
                 currency = currency,
                 rate = newRate,
                 baseRate = baseRate,
-            )
+            ),
         )
     }
 }
