@@ -11,7 +11,7 @@ interface ExchangeRateRepository : JpaRepository<ExchangeRate, Long> {
         select er
         from ExchangeRate er
         where er.currency = :currency
-        order by er.createdAt desc
+        order by er.applyDateTime desc
         limit 1
     """,
     )
