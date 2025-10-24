@@ -18,11 +18,12 @@ import jakarta.persistence.Index
 import jakarta.persistence.Table
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.time.LocalDateTime
 
 @Table(
     name = "exchange_rate",
     indexes = [
-        Index(name = "idx_exchange_rate_currency_created_at", columnList = "currency, createdAt DESC"),
+        Index(name = "idx_exchange_rate_currency_apply_date_time", columnList = "currency, applyDateTime DESC"),
     ],
 )
 @Entity
@@ -36,6 +37,9 @@ class ExchangeRate(
 
     @Column(name = "base_rate", nullable = false, updatable = false)
     val baseRate: BigDecimal,
+
+    @Column(name = "apply_date_time", nullable = false, updatable = false)
+    val applyDateTime: LocalDateTime,
 ) : BaseEntity() {
 
     init {

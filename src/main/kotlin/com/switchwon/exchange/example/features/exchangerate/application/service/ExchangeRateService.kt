@@ -8,6 +8,7 @@ import com.switchwon.exchange.example.system.web.exception.NotFoundException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.math.BigDecimal
+import java.time.LocalDateTime
 
 @Service
 class ExchangeRateService(
@@ -60,6 +61,7 @@ class ExchangeRateService(
                 currency = currency,
                 rate = newRate,
                 baseRate = baseRate,
+                applyDateTime = LocalDateTime.now(),
             ),
         )
     }

@@ -30,7 +30,7 @@ data class ExchangeRateResponse(
                     currency = currency,
                     rate = rate,
                     changePercentage = changePercentage,
-                    applyDateTime = createdAt!!.truncatedTo(ChronoUnit.SECONDS),
+                    applyDateTime = applyDateTime.truncatedTo(ChronoUnit.SECONDS),
                 )
             }
     }
