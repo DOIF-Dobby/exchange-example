@@ -19,14 +19,25 @@ interface ExchangeRateRepository : JpaRepository<ExchangeRate, Long> {
 
     @Query(
         """
-        select e
-        from ExchangeRate e
-        where e.createdAt = (
-            select MAX(e2.createdAt)
-            from ExchangeRate e2
-            where e2.currency = e.currency
-        )
+       SELECT
+            er.exchange_rate_id,
+            er.base_rate,
+            er.change_percentage,
+            er.created_at,
+            er.currency,
+            er.rate,
+            er.updated_at
+        FROM (
+                 SELECT
+                     *,
+                     ROW_NUMBER() OVER(PARTITION BY currency ORDER BY created_at DESC) as rn
+                 FROM
+                     exchange_rate
+             ) er
+        WHERE
+            er.rn = 1
     """,
+        nativeQuery = true,
     )
     fun findLatestExchangeRates(): List<ExchangeRate>
 }
