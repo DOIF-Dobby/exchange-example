@@ -25,9 +25,8 @@ class WalletController(
     )
     @GetMapping("/wallets")
     fun getWallets(): ApiResponse<WalletSummaryResponse> {
-        val walletSummary =
-            walletService
-                .findWalletSummary(AuthenticationUtils.requireCurrentMemberId())
+        val walletSummary = walletService
+            .findWalletSummary(AuthenticationUtils.requireCurrentMemberId())
 
         return ApiResponse.ok(walletSummary)
     }

@@ -57,9 +57,8 @@ class OrderController(
     @Operation(summary = "환전 주문 내역 조회", description = "회원의 환전 주문 내역을 조회합니다.")
     @GetMapping("/orders")
     fun getOrders(): ApiResponse<List<OrderResponse>> {
-        val orders =
-            orderFindService
-                .findOrderResponsesByMemberId(AuthenticationUtils.requireCurrentMemberId())
+        val orders = orderFindService
+            .findOrderResponsesByMemberId(AuthenticationUtils.requireCurrentMemberId())
 
         return ApiResponse.ok(orders)
     }

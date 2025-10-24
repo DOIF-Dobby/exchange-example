@@ -14,8 +14,9 @@ class OrderFindService(
      * 회원의 주문 내역을 조회합니다.
      * - 주문은 최신순으로 정렬되어 반환됩니다.
      */
-    fun findOrderResponsesByMemberId(memberId: MemberId): List<OrderResponse> =
-        orderRepository
+    fun findOrderResponsesByMemberId(memberId: MemberId): List<OrderResponse> {
+        return orderRepository
             .findAllByMemberId(memberId.value)
             .map { OrderResponse.from(it) }
+    }
 }

@@ -137,13 +137,12 @@ class OrderService(
         toMoney: Money,
         appliedRate: ExchangeRate,
     ) {
-        val order =
-            Order(
-                memberId = memberId,
-                fromMoney = fromMoney,
-                toMoney = toMoney,
-                appliedRate = appliedRate.rate,
-            )
+        val order = Order(
+            memberId = memberId,
+            fromMoney = fromMoney,
+            toMoney = toMoney,
+            appliedRate = appliedRate.rate,
+        )
 
         orderRepository.save(order)
     }

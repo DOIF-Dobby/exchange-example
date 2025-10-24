@@ -32,10 +32,9 @@ class AuthService(
     private fun generateTokenByMember(member: Member): String {
         return jwtService.generateToken(
             subject = member.id.value.toString(),
-            claims =
-                mapOf(
-                    "email" to member.email,
-                ),
+            claims = mapOf(
+                "email" to member.email,
+            ),
         )
     }
 }
