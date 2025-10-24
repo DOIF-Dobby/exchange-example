@@ -7,6 +7,7 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
 import org.springframework.web.filter.AbstractRequestLoggingFilter
 
 class LoggingFilter : AbstractRequestLoggingFilter() {
+
     override fun beforeRequest(request: HttpServletRequest, message: String) {
         val memberId = AuthenticationUtils.getCurrentMemberId()
         val memberEmail = AuthenticationUtils.getCurrentMemberEmail()
@@ -37,6 +38,7 @@ class LoggingFilter : AbstractRequestLoggingFilter() {
     }
 
     companion object {
+
         private val exclusivePaths =
             listOf(
                 "/actuator",

@@ -14,6 +14,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher
 
 @Configuration
 class SecurityConfig {
+
     private val permitAllRequest: Array<RequestMatcher> =
         arrayOf(
             PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.POST, "/auth/login"),

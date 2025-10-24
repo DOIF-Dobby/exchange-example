@@ -14,6 +14,7 @@ class MemberService(
     private val memberRepository: MemberRepository,
     private val createNewMemberService: CreateNewMemberService,
 ) {
+
     /**
      * 이메일로 회원을 조회하고, 없으면 새로 등록합니다.
      */

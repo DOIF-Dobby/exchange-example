@@ -12,6 +12,7 @@ import kotlin.random.Random
 class ExchangeRateScheduler(
     private val exchangeRateService: ExchangeRateService,
 ) {
+
     @Scheduled(cron = "0 * * * * *")
     fun triggerCreateNewExchangeRate() {
         generateRandomUsd().also {

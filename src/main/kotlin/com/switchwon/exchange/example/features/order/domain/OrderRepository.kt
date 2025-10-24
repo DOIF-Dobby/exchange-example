@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 
 interface OrderRepository : JpaRepository<Order, Long> {
+
     @Query(
         """
         select o

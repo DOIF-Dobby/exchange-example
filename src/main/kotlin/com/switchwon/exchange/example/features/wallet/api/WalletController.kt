@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 class WalletController(
     private val walletService: WalletService,
 ) {
+
     /**
      * 회원의 지갑 조회
      * - 회원이 보유한 통화별 잔액을 조회합니다.

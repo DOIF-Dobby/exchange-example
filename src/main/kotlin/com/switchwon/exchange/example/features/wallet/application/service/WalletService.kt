@@ -20,6 +20,7 @@ class WalletService(
     private val memberService: MemberService,
     private val exchangeRateService: ExchangeRateService,
 ) {
+
     private val throwWalletNotFoundBlock = { currency: Currency ->
         throw BadRequestException(
             code = "WALLET_NOT_FOUND",

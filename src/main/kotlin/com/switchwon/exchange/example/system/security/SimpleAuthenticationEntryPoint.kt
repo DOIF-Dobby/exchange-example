@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets
 class SimpleAuthenticationEntryPoint(
     private val objectMapper: ObjectMapper,
 ) : AuthenticationEntryPoint {
+
     override fun commence(
         request: HttpServletRequest,
         response: HttpServletResponse,

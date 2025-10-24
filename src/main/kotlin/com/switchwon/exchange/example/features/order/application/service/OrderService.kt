@@ -21,6 +21,12 @@ class OrderService(
     private val walletService: WalletService,
     private val orderValidator: OrderValidator,
 ) {
+
+    /**
+     * 외화 매수/매도 주문을 처리합니다.
+     * - 매수인 경우: KRW -> 외화
+     * - 매도인 경우: 외화 -> KRW
+     */
     @Transactional
     fun order(memberId: MemberId, request: OrderRequest) {
         orderValidator.validateCurrencyPair(

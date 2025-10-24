@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 
 class AuthenticationUtils {
     companion object {
+
         fun getCurrentMember(): TokenMember? {
             return SecurityContextHolder.getContext().authentication?.principal as? TokenMember
         }

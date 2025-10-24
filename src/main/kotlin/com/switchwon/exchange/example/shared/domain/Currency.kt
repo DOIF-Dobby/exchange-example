@@ -12,6 +12,7 @@ enum class Currency(
     val unit: Int = 1,
     val decimalFormat: DecimalFormat = DecimalFormat("#,##0.00"),
 ) {
+
     KRW(
         roundingScale = 0, // 원화는 소수점으로 표시하지 않음
         roundingMode = RoundingMode.DOWN,

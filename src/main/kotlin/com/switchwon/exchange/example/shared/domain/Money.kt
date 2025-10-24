@@ -12,6 +12,7 @@ class Money(
     val currency: Currency,
     amount: BigDecimal,
 ) : Comparable<Money> {
+
     // 통화 타입에 맞는 자릿수 만큼 roundingMode 적용해서 금액 설정
     val amount: BigDecimal = amount.setScale(currency.roundingScale, currency.roundingMode)
 
@@ -77,6 +78,7 @@ class Money(
     }
 
     companion object {
+
         fun of(currency: Currency, amount: BigDecimal) = Money(currency, amount)
 
         fun krw(amount: BigDecimal) = Money(Currency.KRW, amount)

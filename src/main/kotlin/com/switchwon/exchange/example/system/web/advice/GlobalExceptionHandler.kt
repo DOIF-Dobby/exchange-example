@@ -17,6 +17,7 @@ import org.springframework.web.servlet.resource.NoResourceFoundException
 
 @ControllerAdvice
 class GlobalExceptionHandler {
+
     /**
      * Exception 처리
      */

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service
 class OrderFindService(
     private val orderRepository: OrderRepository,
 ) {
+
     /**
      * 회원의 주문 내역을 조회합니다.
      * - 주문은 최신순으로 정렬되어 반환됩니다.

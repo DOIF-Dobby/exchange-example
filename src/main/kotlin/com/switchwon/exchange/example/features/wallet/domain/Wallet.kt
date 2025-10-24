@@ -28,6 +28,7 @@ class Wallet(
 
     currency: Currency,
 ) : BaseEntity() {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "wallet_id")

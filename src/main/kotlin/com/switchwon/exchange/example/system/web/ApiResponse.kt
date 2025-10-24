@@ -13,7 +13,9 @@ data class ApiResponse<T>(
     @field:Schema(description = "응답 데이터")
     val data: T?,
 ) {
+
     companion object {
+
         fun ok(): ApiResponse<Unit> {
             return ApiResponse(
                 code = "OK",

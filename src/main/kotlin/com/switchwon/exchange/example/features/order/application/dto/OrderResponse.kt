@@ -24,7 +24,9 @@ data class OrderResponse(
     @field:Schema(description = "주문 생성 시간", required = true, example = "2023-10-01T12:00:00")
     val orderedAt: LocalDateTime,
 ) {
+
     companion object {
+
         fun from(order: Order) =
             order.run {
                 OrderResponse(

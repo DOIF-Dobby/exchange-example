@@ -20,7 +20,9 @@ data class ExchangeRateResponse(
     @field:Schema(description = "적용 일시", required = true, example = "2023-10-01T12:00:00")
     val applyDateTime: LocalDateTime,
 ) {
+
     companion object {
+
         fun from(exchangeRate: ExchangeRate) =
             exchangeRate.run {
                 ExchangeRateResponse(

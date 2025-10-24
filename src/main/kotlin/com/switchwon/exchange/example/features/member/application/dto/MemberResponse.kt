@@ -8,7 +8,9 @@ data class MemberResponse(
     val email: String,
     val joinedAt: LocalDateTime,
 ) {
+
     companion object {
+
         fun from(member: Member) =
             member.run {
                 MemberResponse(

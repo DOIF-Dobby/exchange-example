@@ -13,6 +13,7 @@ import java.math.BigDecimal
 class ExchangeRateService(
     private val exchangeRateRepository: ExchangeRateRepository,
 ) {
+
     /**
      * 특정 통화의 최신 환율을 조회합니다.
      * - 환율이 존재하지 않으면 예외를 발생시킵니다.

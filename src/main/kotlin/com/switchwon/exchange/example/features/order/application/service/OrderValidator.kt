@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class OrderValidator {
+
     /**
      * 매수/매도 통화가 원화(KRW)를 포함하고 있는지 검증합니다.
      * - 매수인 경우: fromCurrency는 KRW, toCurrency는 외화

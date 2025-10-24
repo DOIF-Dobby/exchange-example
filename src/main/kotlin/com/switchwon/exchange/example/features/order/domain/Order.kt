@@ -38,6 +38,7 @@ class Order(
     @Column(nullable = false, updatable = false)
     val appliedRate: BigDecimal,
 ) : BaseEntity() {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")

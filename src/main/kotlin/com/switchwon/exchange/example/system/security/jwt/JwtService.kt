@@ -13,6 +13,7 @@ import javax.crypto.SecretKey
 class JwtService(
     private val properties: JwtProperties,
 ) {
+
     private val secretKey: SecretKey by lazy {
         Keys.hmacShaKeyFor(properties.key.toByteArray(StandardCharsets.UTF_8))
     }

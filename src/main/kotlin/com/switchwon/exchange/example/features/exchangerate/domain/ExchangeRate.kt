@@ -37,6 +37,7 @@ class ExchangeRate(
     @Column(name = "base_rate", nullable = false, updatable = false)
     val baseRate: BigDecimal,
 ) : BaseEntity() {
+
     init {
         if (currency == Currency.KRW) {
             throw InvalidExchangeRateCurrencyException()

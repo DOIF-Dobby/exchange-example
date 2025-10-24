@@ -14,7 +14,9 @@ data class WalletResponse(
     @field:Schema(description = "잔액", required = true, example = "1000000.00")
     val balance: BigDecimal,
 ) {
+
     companion object {
+
         fun from(wallet: Wallet) =
             wallet.run {
                 WalletResponse(

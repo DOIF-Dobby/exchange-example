@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service
 class InitializeWalletService(
     private val walletRepository: WalletRepository,
 ) {
+
     /**
      * 회원의 지갑을 초기화합니다.
      * - KRW 지갑에 1,000,000원을 입금합니다.

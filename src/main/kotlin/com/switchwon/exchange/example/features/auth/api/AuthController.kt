@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 class AuthController(
     private val authService: AuthService,
 ) {
+
     /**
      * 로그인 요청을 처리합니다.
      * 이메일로 회원을 조회하고, 없으면 새로 등록합니다.

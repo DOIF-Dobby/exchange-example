@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @Configuration
 class WebConfig : WebMvcConfigurer {
+
     @Bean
     fun loggingFilter(): Filter {
         return LoggingFilter()

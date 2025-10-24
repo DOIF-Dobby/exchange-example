@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 class ExchangeRateController(
     private val exchangeRateService: ExchangeRateService,
 ) {
+
     /**
      * 최신 환율 조회
      */

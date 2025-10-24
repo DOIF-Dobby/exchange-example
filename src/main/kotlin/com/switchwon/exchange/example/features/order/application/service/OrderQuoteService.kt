@@ -11,6 +11,7 @@ class OrderQuoteService(
     private val exchangeRateService: ExchangeRateService,
     private val orderValidator: OrderValidator,
 ) {
+
     /**
      * 주문 견적을 조회합니다.
      * - 외화 매수인 경우, 해당 외화를 매수하기 위해 필요한 KRW 금액을 반환합니다.
