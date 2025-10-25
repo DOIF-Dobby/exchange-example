@@ -38,11 +38,13 @@ class WalletService(
         val wallets = walletRepository.findByMember(member)
         val rateMap = exchangeRateService.findLatestExchangeRateMap()
 
-        var totalKrwBalance: BigDecimal = wallets.find { it.currency.isKrw() }?.balanceAmount ?: BigDecimal.ZERO
-
-        wallets.forEach { wallet ->
-            rateMap[wallet.currency]?.let { rate ->
-                totalKrwBalance += rate.convertForexToKrw(wallet.balance).amount
+        val totalKrwBalance = wallets.sumOf { wallet ->
+            when {
+                wallet.currency.isKrw() -> wallet.balanceAmount
+                else -> rateMap[wallet.currency]
+                    ?.convertForexToKrw(wallet.balance)
+                    ?.amount
+                    ?: BigDecimal.ZERO
             }
         }
 
