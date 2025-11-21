@@ -39,10 +39,14 @@ class OrderService(
         val forexCurrency = if (isBuy) request.toCurrency else request.fromCurrency
 
         // 외화 주문 금액 유효성 검사
-        forexCurrency.validateOrderAmountScale(request.forexAmount)
+        forexCurrency.validateOrderAmountScale(amount = request.forexAmount)
+
+        // 외호 주문 금액이 통화별 최소 주문 금액 보다 큰지 확인
+        forexCurrency.validateOrderAmountMin(amount = request.forexAmount)
 
         // 해당 통화의 최신 환율 조회
         val latestExchangeRate = exchangeRateService.findLatestExchangeRate(forexCurrency)
+
         // 요청한 환율 ID와 최신 환율 ID 비교
         validateExchangeRate(requestId = request.exchangeRateId, latestId = latestExchangeRate.id)
 
