@@ -25,6 +25,12 @@ React를 필수로 사용해야 합니다.
 
 - 상태 관리(State Management), 스타일링(Styling), 데이터 페칭(Data Fetching) 등 React 이외의 라이브러리나 기술 스택은 지원자께서 가장 자신 있거나 선호하는 것을 자유롭게 선택하여 사용해 주세요. 지원자님의 역량을 가장 잘 보여줄 수 있는 기술 선택을 존중합니다.
 
+## ⚠️ 주의사항
+
+- 로그인 시, 지원했던 메일을 사용해주시길 바랍니다.
+- Figma 디자인은 예시입니다. 최대한 비슷하게 하되 완전히 똑같을 필요는 없습니다.
+- API 서버는 CORS 허용이 되어 있지 않습니다.
+
 ## 💻 기능 요구사항
 
 ### 페이지 구성
@@ -38,8 +44,6 @@ React를 필수로 사용해야 합니다.
     - 지갑 잔액, 환율 정보 표시, 환전 견적 및 실행 기능이 포함됩니다. 인증된 사용자만 접근할 수 있어야 합니다.
 3. 환전 내역 페이지
     - 과거 환전 기록을 목록 형태로 보여주는 페이지입니다. 인증된 사용자만 접근할 수 있어야 합니다.
-
-**Figma 디자인은 예시입니다. 최대한 비슷하게 하되 완전히 똑같을 필요는 없습니다.**
 
 ### 환전 애플리케이션의 주요 기능은 다음과 같습니다.
 
@@ -98,7 +102,7 @@ curl -X POST "https://exchange-example.switchflow.biz/auth/login" \
 
 # 3. 발급받은 토큰을 사용하여 다른 API 호출
 curl -X GET "https://exchange-example.switchflow.biz/wallets" \
-     -H "Authorization: Bearer eyJhbGciOiJIUzM4NCJ9..."
+     -H "Authorization: Bearer ey..."
 ```
 
 ### 공통 응답 및 에러 포맷
